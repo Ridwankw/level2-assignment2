@@ -76,4 +76,4 @@ const userSchema = new Schema<User & Document>(
   { timestamps: true },
 );
 
-const User = model<User>('User', userSchema);
+export const UserModel = model<User>('User', userSchema);
