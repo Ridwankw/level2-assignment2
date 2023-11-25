@@ -13,11 +13,14 @@ const createUser = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
-    console.log(err);
-    res.status(500).json({
+    // console.error(err);
+    res.status(404).json({
       success: false,
-      message: 'Internal Server Error',
-      data: null,
+      message: 'User not found!',
+      error: {
+        code: 404,
+        description: 'User not found!',
+      },
     });
   }
 };
@@ -31,11 +34,14 @@ const getAllUsers = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
-    console.log(err);
-    res.status(500).json({
+    // console.error(err);
+    res.status(404).json({
       success: false,
-      message: 'Internal Server Error',
-      data: null,
+      message: 'User not found!',
+      error: {
+        code: 404,
+        description: 'User not found!',
+      },
     });
   }
 };
@@ -50,11 +56,14 @@ const getSingleUser = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
-    console.log(err);
-    res.status(500).json({
+    // console.error(err);
+    res.status(404).json({
       success: false,
-      message: 'Internal Server Error',
-      data: null,
+      message: 'User not found!',
+      error: {
+        code: 404,
+        description: 'User not found!',
+      },
     });
   }
 };
@@ -70,11 +79,14 @@ const updateSingleUser = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
-    console.log(err);
-    res.status(500).json({
+    // console.error(err);
+    res.status(404).json({
       success: false,
-      message: 'Internal Server Error',
-      data: null,
+      message: 'User not found!',
+      error: {
+        code: 404,
+        description: 'User not found!',
+      },
     });
   }
 };
@@ -89,11 +101,14 @@ const deleteSingleUser = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
-    console.log(err);
-    res.status(500).json({
+    // console.error(err);
+    res.status(404).json({
       success: false,
-      message: 'Internal Server Error',
-      data: null,
+      message: 'User not found!',
+      error: {
+        code: 404,
+        description: 'User not found!',
+      },
     });
   }
 };
@@ -102,18 +117,21 @@ const addOrderToUser = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
     const { order } = req.body;
-    const result = await UserServices.addOrderToUserInDB(userId, order);
+    await UserServices.addOrderToUserInDB(userId, order);
     res.status(200).json({
       success: true,
       message: 'Order created successfully!',
       data: null,
     });
   } catch (err) {
-    console.log(err);
-    res.status(500).json({
+    // console.error(err);
+    res.status(404).json({
       success: false,
-      message: 'Internal Server Error',
-      data: null,
+      message: 'User not found!',
+      error: {
+        code: 404,
+        description: 'User not found!',
+      },
     });
   }
 };
@@ -124,15 +142,18 @@ const getUserOrders = async (req: Request, res: Response) => {
     const result = await UserServices.getUserOrdersFromDB(userId);
     res.status(200).json({
       success: true,
-      message: 'Orders fetched successfully!',
+      message: 'Orders fetched successfully',
       data: { orders: result },
     });
   } catch (err) {
-    console.log(err);
-    res.status(500).json({
+    // console.error(err);
+    res.status(404).json({
       success: false,
-      message: 'Internal Server Error',
-      data: null,
+      message: 'User not found!',
+      error: {
+        code: 404,
+        description: 'User not found!',
+      },
     });
   }
 };
@@ -147,11 +168,14 @@ const calculateTotalPrice = async (req: Request, res: Response) => {
       data: { totalPrice },
     });
   } catch (err) {
-    console.log(err);
-    res.status(500).json({
+    // console.error(err);
+    res.status(404).json({
       success: false,
-      message: 'Internal Server Error',
-      data: null,
+      message: 'User not found!',
+      error: {
+        code: 404,
+        description: 'User not found!',
+      },
     });
   }
 };
