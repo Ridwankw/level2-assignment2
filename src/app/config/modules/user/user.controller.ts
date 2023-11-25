@@ -2,11 +2,22 @@
 
 import { Request, Response } from 'express';
 import { UserServices } from './user.service';
+import userSchema from './user.validation';
 
 const createUser = async (req: Request, res: Response) => {
   try {
     const { user } = req.body;
     const result = await UserServices.createUserIntoDB(user);
+
+    const { error } = userSchema.validate(user);
+    if (error) {
+      res.status(500).json({
+        success: false,
+        message: 'User not found',
+        error: error.details,
+      });
+    }
+
     res.status(200).json({
       success: true,
       message: 'User created successfully!',
@@ -16,7 +27,7 @@ const createUser = async (req: Request, res: Response) => {
     // console.error(err);
     res.status(404).json({
       success: false,
-      message: 'User not found!',
+      message: 'User not found',
       error: {
         code: 404,
         description: 'User not found!',
