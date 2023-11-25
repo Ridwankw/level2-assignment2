@@ -6,7 +6,7 @@ const addressSchema = Joi.object({
   country: Joi.string().required(),
 });
 
-const orderSchema = Joi.object({
+export const orderSchema = Joi.object({
   productName: Joi.string().required(),
   price: Joi.number().required(),
   quantity: Joi.number().required(),

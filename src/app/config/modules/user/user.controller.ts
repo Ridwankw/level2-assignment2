@@ -1,15 +1,15 @@
-// user.controller.ts
-
-import { Request, Response } from 'express';
+import { Request, Response, json } from 'express';
 import { UserServices } from './user.service';
-import userSchema from './user.validation';
+import userSchema, { orderSchema } from './user.validation';
 
 const createUser = async (req: Request, res: Response) => {
   try {
     const { user } = req.body;
-    const result = await UserServices.createUserIntoDB(user);
 
-    const { error } = userSchema.validate(user);
+    const { error, value } = userSchema.validate(user);
+
+    const result = await UserServices.createUserIntoDB(value);
+
     if (error) {
       res.status(500).json({
         success: false,
@@ -128,6 +128,17 @@ const addOrderToUser = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
     const { order } = req.body;
+
+    const { error: orderError } = orderSchema.validate(order);
+
+    if (orderError) {
+      return res.status(404).json({
+        success: false,
+        message: 'Invalid order data',
+        error: orderError?.details,
+      });
+    }
+
     await UserServices.addOrderToUserInDB(userId, order);
     res.status(200).json({
       success: true,
