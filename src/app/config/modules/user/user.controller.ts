@@ -1,4 +1,4 @@
-import { Request, Response, json } from 'express';
+import { Request, Response } from 'express';
 import { UserServices } from './user.service';
 import userSchema, { orderSchema } from './user.validation';
 
